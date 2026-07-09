@@ -12,7 +12,7 @@ final as (
         acq_source,
         total_orders,
         lifetime_spend,
-        avg_order_value,
+        avg_spend_per_order as avg_order_value,
         first_order_date,
         last_order_date,
         completed_orders,
