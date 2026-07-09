@@ -8,8 +8,8 @@ renamed as (
         last_name,
         email,
         phone,
-        customer_segment,
-        loyalty_tier as loyalty_segment,
+        customer_segment                  as client_segment,
+        loyalty_tier                      as loyalty_segment,
         registration_date,
         date_of_birth,
         city,
@@ -17,7 +17,7 @@ renamed as (
         country,
         is_active,
         marketing_opt_in,
-        acquisition_channel as acq_source
+        acquisition_channel               as acq_source
     from source
 )
 select * from renamed
