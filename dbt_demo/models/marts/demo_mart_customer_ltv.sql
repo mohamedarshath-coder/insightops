@@ -7,7 +7,7 @@ ltv as (
         first_name,
         last_name,
         loyalty_score,
-        segment_code,
+        client_segment,
         loyalty_class,
         total_orders,
         lifetime_spend,
