@@ -14,7 +14,7 @@ cohorts as (
         avg(c.lifetime_spend)                        as avg_ltv
     from customers c
     left join orders o on c.customer_id = o.customer_id
-    group by c.customer_segment, c.loyalty_score, c.loyalty_class, c.first_order_date,
+    group by c.client_segment, c.loyalty_score, c.loyalty_class, c.first_order_date,
              date_trunc('month', c.first_order_date)
 )
 select * from cohorts
