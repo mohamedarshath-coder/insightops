@@ -16,13 +16,12 @@ aggregated as (
         c.is_active,
         c.acq_source,
         count(o.order_id)                                        as total_orders,
-        max(o.revenue_usd) as lifetime_spend, 
-        sum(o.revenue_usd) / count(o.order_id) as avg_spend_per_order,
+        sum(o.gross_revenue)                                     as lifetime_spend,
+        avg(o.gross_revenue)                                     as avg_order_value,
         min(o.order_date)                                        as first_order_date,
         max(o.order_date)                                        as last_order_date,
         count(case when o.order_status = 'completed' then 1 end) as completed_orders,
-        count(case when o.order_status = 'failed'    then 1 end) as failed_orders,
-        MIN(CASE WHEN o.order_status = 'completed' THEN 1 WHEN o.order_status = 'failed' THEN 0 END) as status_num
+        count(case when o.order_status = 'failed'    then 1 end) as failed_orders
     from customers c
     left join orders o on c.customer_id = o.customer_id
     group by

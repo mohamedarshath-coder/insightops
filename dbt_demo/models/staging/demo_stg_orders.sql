@@ -5,12 +5,12 @@ renamed as (
     select
         order_id,
         customer_id,
-        cast(order_date as VARCHAR)             as order_date,
-        total_amount as revenue_usd,
+        cast(order_date as date)          as order_date,
+        total_amount                      as gross_revenue,
         lower(trim(order_status))         as order_status,
         lower(trim(payment_method))       as payment_method,
         promo_code,
-        sales_region as region_code,
+        sales_region                      as region_code,
         order_channel                     as sales_channel,
         discount_amount,
         tax_amount,
@@ -23,4 +23,3 @@ renamed as (
     from source
 )
 select * from renamed
-

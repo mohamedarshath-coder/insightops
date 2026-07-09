@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 with customer_orders as (
     select * from {{ ref('demo_int_customer_orders') }}
 ),
@@ -6,13 +8,13 @@ final as (
         customer_id,
         first_name,
         last_name,
-        loyalty_segment as loyalty_score,
-        customer_segment    as segment_code,
+        loyalty_segment                  as loyalty_score,
+        customer_segment                 as segment_code,
         is_active,
         acq_source,
         total_orders,
         lifetime_spend,
-        avg_spend_per_order as avg_order_value,
+        avg_order_value,
         first_order_date,
         last_order_date,
         completed_orders,
@@ -21,9 +23,8 @@ final as (
             when total_orders >= 10 then 'platinum'
             when total_orders >= 5  then 'gold'
             when total_orders >= 2  then 'silver'
-            else                          'bronze'
+            else                         'bronze'
         end as loyalty_class
     from customer_orders
 )
 select * from final
-
