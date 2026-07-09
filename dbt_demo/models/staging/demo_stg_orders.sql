@@ -5,7 +5,7 @@ renamed as (
     select
         order_id,
         customer_id,
-        cast(order_date as date)             as order_date,
+        cast(order_date as VARCHAR)             as order_date,
         total_amount as gross_revenue,
         lower(trim(order_status))         as order_status,
         lower(trim(payment_method))       as payment_method,
