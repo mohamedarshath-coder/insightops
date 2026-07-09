@@ -6,7 +6,7 @@ renamed as (
         order_id,
         customer_id,
         cast(order_date as VARCHAR)             as order_date,
-        total_amount as gross_revenue,
+        total_amount as revenue_usd,
         lower(trim(order_status))         as order_status,
         lower(trim(payment_method))       as payment_method,
         promo_code,
