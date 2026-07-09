@@ -3,7 +3,6 @@ with fct as (
 ),
 daily as (
     select
-        order_date,
         region_code,
         sales_channel,
         count(order_id)         as total_orders,
