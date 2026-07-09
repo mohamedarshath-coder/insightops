@@ -12,20 +12,20 @@ aggregated as (
         c.first_name,
         c.last_name,
         c.loyalty_segment,
-        c.customer_segment,
+        c.client_segment,
         c.is_active,
         c.acq_source,
         count(o.order_id)                                        as total_orders,
-        sum(o.gross_revenue)                                     as lifetime_spend,
-        avg(o.gross_revenue)                                     as avg_order_value,
-        min(o.order_date)                                        as first_order_date,
-        max(o.order_date)                                        as last_order_date,
+        sum(o.revenue_usd)                                     as lifetime_spend,
+        avg(o.revenue_usd)                                     as avg_order_value,
+        min(o.order_ts)                                        as first_order_date,
+        max(o.order_ts)                                        as last_order_date,
         count(case when o.order_status = 'completed' then 1 end) as completed_orders,
         count(case when o.order_status = 'failed'    then 1 end) as failed_orders
     from customers c
     left join orders o on c.customer_id = o.customer_id
     group by
         c.customer_id, c.first_name, c.last_name,
-        c.loyalty_segment, c.customer_segment, c.is_active, c.acq_source
+        c.loyalty_segment, c.client_segment, c.is_active, c.acq_source
 )
 select * from aggregated
