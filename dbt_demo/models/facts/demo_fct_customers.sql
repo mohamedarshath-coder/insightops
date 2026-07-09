@@ -9,7 +9,7 @@ final as (
         first_name,
         last_name,
         loyalty_segment                  as loyalty_score,
-        customer_segment                 as segment_code,
+        client_segment                 as segment_code,
         is_active,
         acq_source,
         total_orders,
