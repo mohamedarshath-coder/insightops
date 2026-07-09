@@ -9,7 +9,7 @@ cohorts as (
         c.segment_code,
         c.loyalty_score,
         c.loyalty_class,
-        date_trunc('month', c.first_order_date::date)     as cohort_month,
+        date_trunc('month', c.first_order_date)     as cohort_month,
         count(distinct c.customer_id)                as cohort_size,
         sum(o.order_amount)                          as cohort_revenue,
         avg(c.total_orders)                          as avg_orders_per_customer,
