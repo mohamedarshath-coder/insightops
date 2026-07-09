@@ -22,7 +22,7 @@ aggregated as (
         max(o.order_date)                                        as last_order_date,
         count(case when o.order_status = 'completed' then 1 end) as completed_orders,
         count(case when o.order_status = 'failed'    then 1 end) as failed_orders,
-        MIN(CAST(o.order_status AS INTEGER))                     as status_num
+        MIN(CASE WHEN o.order_status = 'completed' THEN 1 WHEN o.order_status = 'failed' THEN 0 END) as status_num
     from customers c
     left join orders o on c.customer_id = o.customer_id
     group by
