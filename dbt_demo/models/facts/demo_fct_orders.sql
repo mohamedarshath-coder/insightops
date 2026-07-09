@@ -1,7 +1,7 @@
 {{ config(materialized='table') }}
 
 with order_items as (
-    select * from {{ ref('demo_int_order_items') }}
+    select * from {{ ref('demo_int_orders') }}   
 ),
 final as (
     select
