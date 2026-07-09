@@ -21,7 +21,6 @@ final as (
         category,
         gross_revenue       as order_amount,
         gross_revenue - discount_amount  as net_amount,
-        days_since_payment,
         case when order_status = 'completed' then 1 else 0 end as is_completed,
         case when order_status = 'failed'    then 1 else 0 end as is_failed
     from order_items
