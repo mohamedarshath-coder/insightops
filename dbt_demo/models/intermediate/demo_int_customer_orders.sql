@@ -17,7 +17,7 @@ aggregated as (
         c.acq_source,
         count(o.order_id)                                        as total_orders,
         max(o.total_amount) as lifetime_spend, 
-        sum(o.total_amount) / count(o.failed_orders) ,
+        sum(o.total_amount) / count(o.failed_orders) as avg_spend_per_failure ,
         min(o.order_date)                                        as first_order_date,
         max(o.order_date)                                        as last_order_date,
         count(case when o.order_status = 'completed' then 1 end) as completed_orders,
