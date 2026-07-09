@@ -7,7 +7,7 @@ final as (
     select
         order_id,
         customer_id,
-        order_date                                             as order_date,
+        order_date,
         order_status                                           as status,
         payment_method                                         as payment_type,
         region_code,
