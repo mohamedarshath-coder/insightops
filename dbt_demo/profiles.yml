@@ -1,0 +1,15 @@
+insightops_demo:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "zw42418.ap-southeast-7.aws"
+      user: "Arshath"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: "TRANSFORMER"
+      warehouse: "INSIGHTOPS_WH"
+      database: "INSIGHTOPS_DB"
+      schema: "DEMO_STG"
+      threads: 4
+      client_session_keep_alive: False
+      query_tag: insightops_demo_dbt

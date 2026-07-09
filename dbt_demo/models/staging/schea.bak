@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: demo_stg_orders
+    columns:
+      - name: promo_code
+        data_tests:
+          - not_null
+      - name: order_status
+        data_tests:
+          - accepted_values:
+              values: ['completed', 'pending', 'processing']
+      - name: customer_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('demo_stg_customers')
+              field: customer_id
+
+  - name: demo_stg_customers
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+      - name: loyalty_tier
+        data_tests:
+          - accepted_values:
+              values: ['gold', 'silver', 'bronze']
+      - name: is_active
+        data_tests:
+          - not_null
+
+  - name: demo_stg_products
+    columns:
+      - name: product_id
+        data_tests:
+          - unique
+          - not_null
+      - name: unit_price
+        data_tests:
+          - not_null
