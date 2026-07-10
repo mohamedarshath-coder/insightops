@@ -10,7 +10,7 @@ daily as (
         sum(order_amount)       as gross_revenue,
         sum(net_amount)         as net_revenue,
         avg(order_amount)       as avg_order_value,
-        sum(discount_amount)    as total_discounts,
+        sum(discount_usd)    as total_discounts,
         sum(is_completed)       as completed_orders,
         sum(is_failed)          as failed_orders
     from fct
