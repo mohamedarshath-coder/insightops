@@ -8,7 +8,7 @@ final as (
         customer_id,
         first_name,
         last_name,
-        loyalty_segment                  as loyalty_rating,
+        loyalty_segment                  as loyalty_score,
         client_segment,
         account_active,
         acq_source,
