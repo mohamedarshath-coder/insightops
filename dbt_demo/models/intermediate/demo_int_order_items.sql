@@ -15,7 +15,7 @@ joined as (
         o.promo_code,
         o.region_code,
         o.sales_channel,
-        o.discount_amount,
+        o.discount_usd as discount_amount,
         o.shipping_amount,
         o.currency,
         o.is_gift,
@@ -27,6 +27,6 @@ joined as (
         p.unit_price,
         p.unit_cost
     from orders o
-    left join products p on o.order_id = p.product_id
+    left join products p on o.order_id = p.item_id
 )
 select * from joined
