@@ -13,7 +13,7 @@ aggregated as (
         c.last_name,
         c.loyalty_segment,
         c.client_segment,
-        c.is_active,
+        c.account_active,
         c.acq_source,
         count(o.order_id)                                        as total_orders,
         sum(o.revenue_usd)                                       as lifetime_spend,
@@ -26,6 +26,6 @@ aggregated as (
     left join orders o on c.customer_id = o.customer_id
     group by
         c.customer_id, c.first_name, c.last_name,
-        c.loyalty_segment, c.client_segment, c.is_active, c.acq_source
+        c.loyalty_segment, c.client_segment, c.account_active, c.acq_source
 )
 select * from aggregated

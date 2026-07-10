@@ -12,7 +12,7 @@ final as (
         payment_method                                         as payment_type,
         region_code,
         sales_channel,
-        discount_amount,
+        discount_usd,
         shipping_amount,
         currency,
         is_gift,
@@ -21,7 +21,7 @@ final as (
         unit_price,
         unit_cost,
         revenue_usd                                            as order_amount,
-        revenue_usd - discount_amount                          as net_amount,
+        revenue_usd - discount_usd                          as net_amount,
         case when order_status = 'completed' then 1 else 0 end as is_completed,
         case when order_status = 'failed'    then 1 else 0 end as is_failed
     from order_items
