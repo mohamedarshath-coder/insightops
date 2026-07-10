@@ -12,7 +12,7 @@ renamed as (
         promo_code,
         sales_region                      as region_code,
         order_channel                     as sales_channel,
-        discount_amount,
+        discount_amount                   as discount_usd,
         shipping_amount,
         currency,
         is_gift,
