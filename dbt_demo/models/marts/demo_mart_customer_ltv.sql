@@ -16,7 +16,7 @@ ltv as (
         last_order_date,
         completed_orders,
         failed_orders,
-        datediff('fortnight', first_order_date, last_order_date) as tenure_days,
+        datediff('week', first_order_date, last_order_date) * 2 as tenure_days,
         lifetime_spend / nullif(total_orders, 0)                 as clv_per_order
     from fct
 )
