@@ -1,5 +1,5 @@
 with fct as (
-    select * from {{ ref('demo_fct_orders') }}
+    select * from {{ ref('demo_fct_order') }}
 ),
 daily as (
     select
