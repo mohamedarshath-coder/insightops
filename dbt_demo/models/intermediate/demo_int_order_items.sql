@@ -13,7 +13,7 @@ joined as (
         o.order_status,
         o.payment_method,
         o.promo_code,
-        o.region_code,
+        o.sales_region_code as region_code,
         o.sales_channel,
         o.discount_usd,
         o.shipping_amount,
