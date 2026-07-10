@@ -9,7 +9,7 @@ joined as (
         o.order_id,
         o.customer_id,
         o.order_ts,
-        o.revenue_usd,
+        o.net_sales_amount as revenue_usd,
         o.order_status,
         o.payment_method,
         o.promo_code,
