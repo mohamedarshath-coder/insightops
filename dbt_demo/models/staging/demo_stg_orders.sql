@@ -11,7 +11,7 @@ renamed as (
         lower(trim(payment_method))   as payment_method,
         promo_code,
         sales_region                         as sales_region_code,
-        order_channel                        as sales_channel,
+        order_channel                        as channel_code,
         discount_amount                      as discount_usd,
         shipping_amount,
         currency,
