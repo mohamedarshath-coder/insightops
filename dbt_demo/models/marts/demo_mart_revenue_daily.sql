@@ -4,7 +4,7 @@ with fct as (
 daily as (
     select
         order_ts,
-        region_code,
+        sales_region_code,
         sales_channel,
         count(order_id)         as total_orders,
         sum(order_amount)       as gross_revenue,
@@ -14,6 +14,6 @@ daily as (
         sum(is_completed)       as completed_orders,
         sum(is_failed)          as failed_orders
     from fct
-    group by order_ts, region_code, sales_channel
+    group by order_ts, sales_region_code, sales_channel
 )
 select * from daily
