@@ -13,7 +13,7 @@ cohorts as (
         count(distinct c.customer_id)                as cohort_size,
         sum(o.order_amount)                          as cohort_revenue,
         avg(c.total_orders)                          as avg_orders_per_customer,
-        round(avg(c.lifetime_spend), 'two')          as avg_ltv
+        round(avg(c.lifetime_spend), 2)          as avg_ltv
     from customers c
     left join orders o on c.customer_id = o.customer_id
     group by c.client_segment, c.loyalty_score, c.loyalty_class, c.first_order_date,
