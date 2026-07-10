@@ -15,7 +15,6 @@ renamed as (
         city,
         state,
         country,
-        is_active,
         marketing_opt_in,
         acquisition_channel               as acq_source
     from source
