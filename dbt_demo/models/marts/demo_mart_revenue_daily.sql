@@ -12,7 +12,7 @@ daily as (
         avg(order_amount)       as avg_order_value,
         sum(discount_usd)    as total_discounts,
         sum(case when status = 'completed' then 1 else 0 end) as completed_orders,
-        sum(is_failed)          as failed_orders
+        sum(case when status = 'failed' then 1 else 0 end) as failed_orders
     from fct
     group by order_ts, sales_region_code, sales_channel
 )
