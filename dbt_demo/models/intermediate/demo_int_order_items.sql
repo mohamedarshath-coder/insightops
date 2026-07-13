@@ -16,7 +16,7 @@ joined as (
         o.sales_region_code,
         o.sales_channel,
         o.discount_usd,
-        o.shipping_amount,
+        o.shipping_fee,
         o.currency,
         o.is_gift,
         o.estimated_delivery_date,
@@ -27,6 +27,6 @@ joined as (
         p.unit_price,
         p.unit_cost
     from orders o
-    left join products p on o.order_id = p.product_id
+    left join products p on o.order_id = p.item_id
 )
 select * from joined

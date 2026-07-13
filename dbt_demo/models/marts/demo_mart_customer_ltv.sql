@@ -11,7 +11,6 @@ ltv as (
         loyalty_class,
         total_orders,
         lifetime_spend,
-        avg_order_value,
         first_order_date,
         last_order_date,
         completed_orders,
