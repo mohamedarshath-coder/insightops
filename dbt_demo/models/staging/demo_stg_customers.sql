@@ -17,7 +17,7 @@ renamed as (
         country,
         is_active                         as account_active,
         marketing_opt_in,
-        acquisition_channel               as acquisition_source
+        acquisition_channel               as acq_channel
     from source
 )
 select * from renamed
