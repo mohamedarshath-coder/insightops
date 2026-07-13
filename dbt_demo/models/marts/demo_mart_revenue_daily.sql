@@ -8,7 +8,6 @@ daily as (
         sales_channel,
         count(order_id)         as total_orders,
         sum(order_amount)       as gross_revenue,
-        sum(net_amount)         as net_revenue,
         avg(order_amount)       as avg_order_value,
         sum(discount_usd)    as total_discounts,
         sum(case when status = 'completed' then 1 else 0 end) as completed_orders,
