@@ -27,6 +27,6 @@ joined as (
         p.unit_price,
         p.unit_cost
     from orders o
-    left join products p on o.order_id = p.item_id
+    left join products p on o.order_id = p.product_id
 )
 select * from joined
