@@ -13,7 +13,7 @@ renamed as (
         sales_region                         as sales_region_code,
         order_channel                        as sales_channel,
         discount_amount                      as discount_usd,
-        shipping_amount,
+        shipping_amount                      as shipping_fee,
         currency,
         is_gift,
         estimated_delivery_date,
