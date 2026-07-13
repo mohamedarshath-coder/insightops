@@ -13,7 +13,7 @@ final as (
         sales_region_code,
         sales_channel,
         discount_usd,
-        shipping_fee,
+        shipping_amount,
         currency,
         is_gift,
         product_name,
@@ -22,8 +22,7 @@ final as (
         unit_cost,
         revenue_usd                                            as order_amount,
         revenue_usd - discount_usd                             as net_amount,
-        case when order_status = 'completed' then 1 else 0 end as is_completed,
-        case when order_status = 'failed'    then 1 else 0 end as is_failed
+        case when order_status = 'failed' then 1 else 0 end as is_failed
     from order_items
 )
 select * from final
