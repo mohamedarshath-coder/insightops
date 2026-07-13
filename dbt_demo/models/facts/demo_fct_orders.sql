@@ -13,7 +13,7 @@ final as (
         sales_region_code,
         sales_channel,
         discount_usd,
-        shipping_amount,
+        shipping_fee,
         currency,
         is_gift,
         product_name,
