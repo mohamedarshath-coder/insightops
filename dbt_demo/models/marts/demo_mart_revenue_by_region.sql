@@ -6,7 +6,7 @@ regional as (
         sales_region_code,
         sales_channel,
         payment_type,
-        round(count(order_id), 2)  as total_orders,
+        round(count(order_id), 'two')  as total_orders,
         sum(case when status = 'completed' then 1 else 0 end) as completed_orders
     from fct
     group by sales_region_code, sales_channel, payment_type
