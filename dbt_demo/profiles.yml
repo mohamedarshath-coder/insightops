@@ -3,12 +3,12 @@ insightops_demo:
   outputs:
     dev:
       type: snowflake
-      account: "zw42418.ap-southeast-7.aws"
-      user: "Arshath"
+      account: "INLDKNQ-LATENTVIEW_COMMON_ACCOUNT"
+      user: "mohamed.arshath@latentview.com"
       password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
-      role: "TRANSFORMER"
-      warehouse: "INSIGHTOPS_WH"
-      database: "INSIGHTOPS_DB"
+      role: "BET_ROLE"
+      warehouse: "BET_WH"
+      database: "BET_DB"
       schema: "DEMO_STG"
       threads: 4
       client_session_keep_alive: False
