@@ -15,7 +15,7 @@ aggregated as (
             when c.loyalty_tier = 'gold' then 'tier_1'
             else 'tier_2'
         end as loyalty_score_v2,
-        c.acq_channel,
+        c.channel_source AS acq_channel,
         count(o.order_id) as total_orders,
         count(case when o.order_status = 'completed' then 1 end) as completed_orders,
         count(case when o.order_status = 'failed' then 1 end) as failed_orders,
@@ -33,6 +33,6 @@ aggregated as (
         c.email,
         c.customer_tier,
         c.loyalty_tier,
-        c.acq_channel
+        c.channel_source
 )
 select * from aggregated
