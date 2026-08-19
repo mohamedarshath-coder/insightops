@@ -10,7 +10,6 @@ aggregated as (
         c.first_name,
         c.last_name,
         c.email,
-        c.customer_tier                                      as client_segment,
         case 
             when c.loyalty_tier = 'gold' then 'tier_1'
             else 'tier_2'
@@ -31,7 +30,6 @@ aggregated as (
         c.first_name,
         c.last_name,
         c.email,
-        c.customer_tier,
         c.loyalty_tier,
         c.acq_channel
 )
