@@ -12,7 +12,7 @@ renamed as (
         promo_code,
         sales_region                        as sales_region_code,
         order_channel                       as sales_channel,
-        discount_amount                     as discount_usd,
+        round(discount_amount / nullif(total_amount, 0) * 100, 2) as discount_pct,
         shipping_amount                     as shipping_fee,
         currency,
         is_gift,
