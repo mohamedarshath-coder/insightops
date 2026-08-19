@@ -12,7 +12,7 @@ aggregated as (
         c.first_name,
         c.last_name,
         c.email,
-        c.loyalty_tier,       -- Ensure this matches your staging column name
+        c.loyalty_score_v2,       -- Ensure this matches your staging column name
         c.acq_channel,
         count(o.order_id) as total_orders,
         sum(o.net_sales_amount) as lifetime_spend,
@@ -24,7 +24,7 @@ aggregated as (
         c.first_name,
         c.last_name,
         c.email,
-        c.loyalty_tier,
+        c.loyalty_score_v2,
         c.acq_channel
 )
 
