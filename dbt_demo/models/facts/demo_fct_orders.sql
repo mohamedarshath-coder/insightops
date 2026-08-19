@@ -19,7 +19,6 @@ final as (
         product_name,
         category,
         unit_price,
-        unit_cost,
         revenue_usd                                            as order_amount
     from order_items
 )
