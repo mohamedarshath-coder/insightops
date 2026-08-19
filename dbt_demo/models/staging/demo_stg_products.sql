@@ -3,7 +3,7 @@ with source as (
 ),
 renamed as (
     select
-        product_id                          as item_id,
+        product_id                          as product_key,
         product_name,
         sku,
         category,
