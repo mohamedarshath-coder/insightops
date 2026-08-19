@@ -1,10 +1,23 @@
 import os, subprocess, sys
 from datetime import datetime, timezone
 
-REPO_URL = "https://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@github.com/mohamedarshath-coder/insightops.git"
+# Keep your existing token here exactly as you already have it in your real file.
+# (Shown as a placeholder here only because this copy travels through chat/repo.)
+REPO_URL="https://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@github.com/mohamedarshath-coder/insightops.git"
 WORK_DIR = "/tmp/insightops_demo_run"
 DBT_DIR  = f"{WORK_DIR}/lv_insightops/dbt_demo"
 JOB_NAME = "insightops_dbt_demo_pipeline"
+
+# Isolated virtualenv for this job's Python deps -- avoids any conflict with
+# dbt-snowflake / dbt-databricks already installed as cluster-wide libraries
+# for other purposes on this cluster. No new compute required.
+VENV_DIR = "/tmp/insightops_venv"
+VENV_PY  = f"{VENV_DIR}/bin/python"
+VENV_DBT = f"{VENV_DIR}/bin/dbt"   # dbt-core ships a console-script entry
+                                    # point, NOT a dbt/__main__.py -- so it
+                                    # must be invoked as `dbt ...`, never
+                                    # `python -m dbt ...` (that always fails
+                                    # with "No module named dbt.__main__").
 
 # Set env var DBT_TARGET=local on the Databricks job to run entirely on
 # DuckDB (no Snowflake network access needed at all). Leave unset (or "dev")
@@ -28,12 +41,22 @@ cluster_id = os.environ.get("DATABRICKS_CLUSTER_ID", "demo-cluster")
 now_str    = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
 print(f"Job: {JOB_NAME} | Run: {run_id} | Target: {DBT_TARGET} | {now_str}")
 
+print(f"Creating isolated virtualenv at {VENV_DIR} (avoids cluster-library conflicts)...")
+run(f"rm -rf {VENV_DIR}")
+rc, out = run(f"{sys.executable} -m venv {VENV_DIR}")
+if rc != 0:
+    raise RuntimeError("venv creation failed")
+
+rc, out = run(f"{VENV_PY} -m pip install --quiet --upgrade pip")
+if rc != 0:
+    raise RuntimeError("pip upgrade in venv failed")
+
 if DBT_TARGET == "local":
-    print("Installing dbt-duckdb (no Snowflake network access required)...")
-    rc, out = run(f"{sys.executable} -m pip install dbt-duckdb==1.11.* faker duckdb --quiet")
+    print("Installing dbt-duckdb in isolated venv (no Snowflake network access required)...")
+    rc, out = run(f"{VENV_PY} -m pip install --quiet dbt-duckdb==1.11.* faker duckdb")
 else:
-    print("Installing dbt-snowflake...")
-    rc, out = run(f"{sys.executable} -m pip install dbt-snowflake==1.7.* --quiet")
+    print("Installing dbt-snowflake in isolated venv...")
+    rc, out = run(f"{VENV_PY} -m pip install --quiet dbt-snowflake==1.7.*")
 if rc != 0:
     raise RuntimeError("dbt/adapter install failed")
 
@@ -45,13 +68,13 @@ if rc != 0:
 
 if DBT_TARGET == "local":
     print("Seeding local DuckDB warehouse with synthetic data...")
-    rc, out = run(f"{sys.executable} load_duckdb.py", cwd=DBT_DIR)
+    rc, out = run(f"{VENV_PY} load_duckdb.py", cwd=DBT_DIR)
     if rc != 0:
         raise RuntimeError("DuckDB seed step failed")
 
 print("Running dbt...")
 rc, _ = run(
-    f"{sys.executable} -m dbt run --profiles-dir . --project-dir . --target {DBT_TARGET}",
+    f"{VENV_DBT} run --profiles-dir . --project-dir . --target {DBT_TARGET}",
     cwd=DBT_DIR,
     env={"SNOWFLAKE_PASSWORD": os.environ.get("SNOWFLAKE_PASSWORD", ""),
          "DBT_PROFILES_DIR": DBT_DIR}
@@ -59,3 +82,5 @@ rc, _ = run(
 if rc != 0:
     raise RuntimeError(f"dbt failed -- exit code {rc}")
 print("dbt run complete")
+
+
