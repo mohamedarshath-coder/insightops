@@ -1,7 +1,4 @@
 
-Mohamed Arshath
-15:55 (0 minutes ago)
-to me
 
 import os, subprocess, sys
 from datetime import datetime, timezone
@@ -57,6 +54,9 @@ if DBT_TARGET == "local":
         raise RuntimeError("DuckDB seed step failed")
 
 print("Running dbt...")
+# Invoke dbt via its Python API (dbt.cli.main:cli) rather than the `dbt`
+# console script -- this avoids any dependence on how/where pip placed the
+# script, and works identically either way.
 dbt_invoke = (
     f'{sys.executable} -c "from dbt.cli.main import cli; cli()" '
     f'run --profiles-dir . --project-dir . --target {DBT_TARGET}'
@@ -67,25 +67,18 @@ rc, dbt_output = run(
     env={"SNOWFLAKE_PASSWORD": os.environ.get("SNOWFLAKE_PASSWORD", "")}
 )
 
-# Always refresh the DBFS log file this run touches, so the Databricks
-# Notifier Lambda (which reads a fixed path) never serves stale content
-# from a previous run. The old notebook wrote here via dbutils.fs.put;
-# this script isn't a notebook, so we write through the DBFS FUSE mount
-# at /dbfs instead, which lands in the same place.
-DBFS_LOG_PATH = "/dbfs/tmp/insightops_dbt_logs.txt"
+# Write this run's REAL output to a DEDICATED path -- distinct from the old
+# notebook's fixed path (/tmp/insightops_dbt_logs.txt), which only that old
+# notebook ever writes to and would otherwise make every alert show stale
+# content. The Notifier Lambda checks this path FIRST.
 try:
-    os.makedirs(os.path.dirname(DBFS_LOG_PATH), exist_ok=True)
-    with open(DBFS_LOG_PATH, "w") as f:
-        f.write(f"Job: {JOB_NAME} | Run: {run_id} | Target: {DBT_TARGET} | {now_str}\n")
-        f.write(f"Exit code: {rc}\n")
-        f.write("-" * 60 + "\n")
+    os.makedirs("/dbfs/tmp/insightops_local_run", exist_ok=True)
+    with open("/dbfs/tmp/insightops_local_run/latest_dbt_output.txt", "w") as f:
         f.write(dbt_output)
-    print(f"Wrote fresh run log to {DBFS_LOG_PATH}")
-except OSError as e:
-    # Don't let a logging problem mask the real dbt result -- just warn.
-    print(f"WARNING: could not write {DBFS_LOG_PATH}: {e}")
+    print("Wrote run output to /dbfs/tmp/insightops_local_run/latest_dbt_output.txt")
+except Exception as e:
+    print(f"Could not write DBFS output file (non-fatal): {e}")
 
 if rc != 0:
     raise RuntimeError(f"dbt failed -- exit code {rc}")
 print("dbt run complete")
-
