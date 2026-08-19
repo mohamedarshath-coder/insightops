@@ -8,7 +8,7 @@ final as (
         customer_id,
         first_name,
         last_name,
-        loyalty_score_v2                  as loyalty_score,
+        loyalty_score_v2                  as loyalty_score, -- loyalty_tier is re-derived as derived_loyalty_level in demo_int_customer_orders.sql,
         client_segment,
         account_active,
         acq_channel,
@@ -18,7 +18,7 @@ final as (
         last_order_date,
         completed_orders,
         failed_orders,
-        case
+        case when loyalty_score_v2 is not null then
             when total_orders >= 10 then 'platinum'
             when total_orders >= 5  then 'gold'
             when total_orders >= 2  then 'silver'
