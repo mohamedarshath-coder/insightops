@@ -9,7 +9,7 @@ renamed as (
         email,
         phone,
         customer_segment                    as customer_tier,
-        case when loyalty_tier in ('gold','platinum') then true else false end as is_premium_customer,
+        loyalty_tier,
         registration_date,
         date_of_birth,
         city,
