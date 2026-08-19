@@ -1,26 +1,23 @@
 with source as (
-    select * from {{ source('insightops', 'raw_orders') }}
+    select * from {{ source('insightops', 'raw_customers') }}
 ),
 renamed as (
     select
-        order_id,
         customer_id,
-        cast(order_date as date)            as order_ts,
-        -- BREAK: Deprecated net_sales_amount; split into base and tax
-        base_amount,
-        tax_amount,
-        lower(trim(order_status))           as order_status,
-        lower(trim(payment_method))         as payment_method,
-        promo_code,
-        sales_region                        as sales_region_code,
-        order_channel                       as sales_channel,
-        discount_amount                     as discount_usd,
-        shipping_amount                     as shipping_fee,
-        currency,
-        is_gift,
-        estimated_delivery_date,
-        actual_delivery_date,
-        return_requested
+        first_name,
+        last_name,
+        email,
+        phone,
+        customer_segment                    as client_segment,
+        loyalty_tier,
+        registration_date,
+        date_of_birth,
+        city,
+        state,
+        country,
+        is_active                           as account_active,
+        marketing_opt_in,
+        acquisition_channel                 as acq_channel
     from source
 )
 select * from renamed
