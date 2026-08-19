@@ -8,7 +8,7 @@ renamed as (
         last_name,
         email,
         phone,
-        customer_segment                    as customer_tier,
+        acquisition_channel                 as channel_source
         loyalty_tier,
         registration_date,
         date_of_birth,
