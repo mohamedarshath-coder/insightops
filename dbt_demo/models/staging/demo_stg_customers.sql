@@ -9,13 +9,12 @@ renamed as (
         email,
         phone,
         customer_segment                  as client_segment,
-        loyalty_tier                      as loyalty_segment,
+        loyalty_tier                      as loyalty_score,
         registration_date,
         date_of_birth,
         city,
         state,
         country,
-        is_active                         as account_active,
         marketing_opt_in,
         acquisition_channel               as acq_channel
     from source
