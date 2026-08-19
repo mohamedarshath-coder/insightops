@@ -13,3 +13,8 @@ insightops_demo:
       threads: 4
       client_session_keep_alive: False
       query_tag: insightops_demo_dbt
+    local:
+      type: duckdb
+      path: 'insightops_demo.duckdb'
+      schema: "DEMO_STG"
+      threads: 4
