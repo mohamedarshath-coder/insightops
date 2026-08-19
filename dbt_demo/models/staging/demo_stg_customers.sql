@@ -7,7 +7,7 @@ renamed as (
         customer_id,
         cast(order_date as date)            as order_ts,
         -- BREAK: Deprecated net_sales_amount; split into base and tax
-        base_amount,
+        total_amount AS base_amount,
         tax_amount,
         lower(trim(order_status))           as order_status,
         lower(trim(payment_method))         as payment_method,
