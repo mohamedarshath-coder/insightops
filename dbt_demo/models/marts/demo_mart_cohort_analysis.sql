@@ -7,7 +7,6 @@ orders as (
 cohorts as (
     select
         c.client_segment,
-        c.loyalty_score,
         c.loyalty_class,
         date_trunc('month', cast(c.first_order_date as date))     as cohort_month,
         count(distinct c.customer_id)                as cohort_size,

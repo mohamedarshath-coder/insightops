@@ -8,7 +8,6 @@ final as (
         customer_id,
         first_name,
         last_name,
-        loyalty_score_v2                  as loyalty_score,
         client_segment,
         account_active,
         acq_channel,
