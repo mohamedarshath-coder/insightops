@@ -6,7 +6,7 @@ renamed as (
         customer_id,
         first_name,
         last_name,
-        email,
+        email as contact_email,
         phone,
         customer_segment                    as customer_tier,
         loyalty_tier,
