@@ -12,7 +12,7 @@ final as (
         payment_method                                         as payment_type,
         sales_region_code,
         sales_channel,
-        discount_usd,
+        discount_pct * revenue_usd / 100 AS discount_usd,
         shipping_fee                                           as shipping_amount,
         currency,
         is_gift,
