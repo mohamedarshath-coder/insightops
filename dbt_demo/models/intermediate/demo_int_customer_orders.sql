@@ -11,7 +11,11 @@ aggregated as (
         c.last_name,
         c.email,
         c.client_segment,
-        c.loyalty_tier,
+        -- BREAK INTRODUCED: Rederiving loyalty_tier as loyalty_score_v2 without downstream alias
+        case 
+            when c.loyalty_tier = 'gold' then 'tier_1'
+            else 'tier_2'
+        end as loyalty_score_v2,
         c.acq_channel,
         count(o.order_id) as total_orders,
         count(case when o.order_status = 'completed' then 1 end) as completed_orders,
