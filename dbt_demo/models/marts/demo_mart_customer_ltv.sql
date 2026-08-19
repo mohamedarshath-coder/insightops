@@ -6,7 +6,6 @@ ltv as (
         customer_id,
         first_name,
         last_name,
-        loyalty_score,
         client_segment,
         loyalty_class,
         total_orders,
