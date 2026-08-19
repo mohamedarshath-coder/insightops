@@ -1,7 +1,7 @@
 version: 2
 sources:
   - name: insightops
-    database: BET_DB
+    database: "{{ 'BET_DB' if target.type == 'snowflake' else none }}"
     schema: INSIGHTOPS_RAW
     tables:
       - name: raw_orders
