@@ -25,7 +25,7 @@ joined as (
         p.product_name,
         p.category,
         p.unit_price,
-        p.unit_cost
+        p.margin_pct
     from orders o
     left join products p on o.order_id = p.item_id
 )
