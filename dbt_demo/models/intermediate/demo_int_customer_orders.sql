@@ -10,7 +10,7 @@ aggregated as (
         c.first_name,
         c.last_name,
         c.email,
-        c.loyalty_score_v2 as loyalty_tier, -- Maps new score to loyalty_tier for downstream safety
+        c.loyalty_tier as loyalty_tier, -- Maps existing tier to loyalty_tier for downstream safety
         c.acq_channel,
         count(o.order_id) as total_orders,
         sum(o.net_sales_amount) as lifetime_spend,
@@ -22,7 +22,6 @@ aggregated as (
         c.first_name,
         c.last_name,
         c.email,
-        c.loyalty_score_v2,
         c.acq_channel
 )
 select * from aggregated
