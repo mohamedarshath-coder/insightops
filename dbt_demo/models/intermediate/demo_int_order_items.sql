@@ -24,9 +24,8 @@ joined as (
         o.return_requested,
         p.product_name,
         p.category,
-        p.unit_price,
-        p.unit_cost
+        p.unit_price
     from orders o
-    left join products p on o.order_id = p.item_id
+    left join products p on o.order_id = p.product_key
 )
 select * from joined
