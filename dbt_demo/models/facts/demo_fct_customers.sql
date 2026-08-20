@@ -11,7 +11,7 @@ final as (
         loyalty_score_v2                                    as loyalty_score,
         client_segment,
         account_active,
-        acq_channel,
+        channel_source,
         total_orders,
         lifetime_spend,
         first_order_date,
