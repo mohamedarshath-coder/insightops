@@ -1,9 +1,10 @@
 import os, subprocess, sys
 from datetime import datetime, timezone
 
-# Keep your existing token here exactly as you already have it in your real file.
-# (Shown as a placeholder here only because this copy travels through chat/repo.)
-REPO_URL="https://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@github.com/mohamedarshath-coder/insightops.git"
+# insightops is a public repo -- no credential needed to clone it at all. (A previous
+# version of this file had a live GitHub token hardcoded here, which was both a real
+# credential exposed in source and entirely unnecessary for a public repo.)
+REPO_URL = "https://github.com/mohamedarshath-coder/insightops.git"
 WORK_DIR = "/tmp/insightops_demo_run"
 DBT_DIR  = f"{WORK_DIR}/lv_insightops/dbt_demo"
 JOB_NAME = "insightops_dbt_demo_pipeline"
