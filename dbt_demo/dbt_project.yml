@@ -25,4 +25,6 @@ models:
       +materialized: table
 
 on-run-end:
-  - "{{ verify_zero_order_customers() }}"
+  - |
+    -- depends_on: {{ ref('demo_fct_customers') }}
+    {{ verify_zero_order_customers() }}
