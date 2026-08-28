@@ -1,9 +1,6 @@
 with orders as (
     select * from {{ ref('demo_stg_orders') }}
 ),
-products as (
-    select * from {{ ref('demo_stg_products') }}
-),
 joined as (
     select
         o.order_id,
@@ -21,12 +18,7 @@ joined as (
         o.is_gift,
         o.estimated_delivery_date,
         o.actual_delivery_date,
-        o.return_requested,
-        p.product_name,
-        p.category,
-        p.unit_price,
-        p.unit_cost
+        o.return_requested
     from orders o
-    left join products p on o.order_id = p.item_id
 )
 select * from joined

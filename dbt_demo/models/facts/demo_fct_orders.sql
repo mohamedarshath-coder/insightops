@@ -16,10 +16,6 @@ final as (
         shipping_fee                                           as shipping_amount,
         currency,
         is_gift,
-        product_name,
-        category,
-        unit_price,
-        unit_cost,
         revenue_usd                                            as order_amount
     from order_items
 )
