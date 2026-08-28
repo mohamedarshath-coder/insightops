@@ -1,5 +1,3 @@
-
-
 import os, subprocess, sys
 from datetime import datetime, timezone
 
@@ -66,6 +64,32 @@ rc, dbt_output = run(
     cwd=DBT_DIR,
     env={"SNOWFLAKE_PASSWORD": os.environ.get("SNOWFLAKE_PASSWORD", "")}
 )
+
+# --- TEMPORARY VERIFICATION BLOCK (opsbuddy-fix SCRUM-69 post-merge check) ---
+# Confirms demo_fct_customers correctly includes customers with zero orders now that
+# demo_stg_customers.sql no longer filters them out. Only runs for the local/DuckDB
+# target, where the resulting file is directly queryable right after the run. This
+# block is meant to be reverted after one verification run, not kept permanently.
+if rc == 0 and DBT_TARGET == "local":
+    print("VERIFICATION: checking demo_fct_customers for zero-order customers...")
+    try:
+        import duckdb
+        con = duckdb.connect(f"{DBT_DIR}/insightops_demo.duckdb", read_only=True)
+        zero_count = con.execute(
+            "SELECT COUNT(*) FROM DEMO_STG.demo_fct_customers WHERE total_orders = 0"
+        ).fetchone()[0]
+        print(f"VERIFICATION: customers_with_zero_orders={zero_count}")
+        sample = con.execute(
+            "SELECT customer_id, total_orders, lifetime_spend, loyalty_class "
+            "FROM DEMO_STG.demo_fct_customers WHERE total_orders = 0 LIMIT 5"
+        ).fetchall()
+        print(f"VERIFICATION: sample_zero_order_rows={sample}")
+        total_customers = con.execute("SELECT COUNT(*) FROM DEMO_STG.demo_fct_customers").fetchone()[0]
+        print(f"VERIFICATION: total_customers_in_mart={total_customers}")
+        con.close()
+    except Exception as e:
+        print(f"VERIFICATION: query failed (non-fatal, does not affect dbt result): {e}")
+# --- END TEMPORARY VERIFICATION BLOCK ---
 
 # Write this run's REAL output to a DEDICATED path -- distinct from the old
 # notebook's fixed path (/tmp/insightops_dbt_logs.txt), which only that old
