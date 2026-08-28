@@ -1,3 +1,4 @@
+-- depends_on: {{ ref('demo_fct_customers') }}
 {% macro verify_zero_order_customers() %}
   {% if execute %}
     {% set zero_query %}
