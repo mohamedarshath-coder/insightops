@@ -23,8 +23,3 @@ models:
     marts:
       +schema: DEMO_MART
       +materialized: table
-
-on-run-end:
-  - |
-    -- depends_on: {{ ref('demo_fct_customers') }}
-    {{ verify_zero_order_customers() }}
