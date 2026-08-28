@@ -1,6 +1,9 @@
 with source as (
     select * from {{ source('insightops', 'raw_customers') }}
 ),
+customers_with_orders as (
+    select distinct customer_id from {{ ref('demo_int_customer_orders') }}
+),
 renamed as (
     select
         customer_id,
@@ -19,5 +22,6 @@ renamed as (
         marketing_opt_in,
         acquisition_channel                 as channel_source
     from source
+    where customer_id in (select customer_id from customers_with_orders)
 )
 select * from renamed
