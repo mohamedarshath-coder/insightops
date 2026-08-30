@@ -16,7 +16,7 @@ final as (
         shipping_fee                                           as shipping_amount,
         currency,
         is_gift,
-        revenue_usd_v2                                         as order_amount
+        revenue_usd                                            as order_amount
     from order_items
 )
 select * from final
