@@ -6,7 +6,7 @@ with customers as (
 engagement as (
     select
         customer_id,
-        customer_name,
+        first_name || ' ' || last_name as customer_name,
         loyalty_score,
         client_segment,
         total_orders,

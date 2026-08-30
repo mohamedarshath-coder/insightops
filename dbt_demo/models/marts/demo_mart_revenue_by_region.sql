@@ -3,7 +3,7 @@ with fct as (
 ),
 regional as (
     select
-        sales_region_code_v2,
+        sales_region_code,
         sales_channel,
         payment_type,
         round(count(order_id), 2) as total_orders,
