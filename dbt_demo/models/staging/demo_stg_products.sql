@@ -10,7 +10,7 @@ renamed as (
         sub_category,
         brand,
         supplier,
-        round((unit_price - unit_cost) / nullif(unit_price, 0) * 100, 2) as margin_pct,
+        round((unit_price - unit_cost / nullif(unit_price, 0) * 100, 2) as margin_pct,
         unit_price,
         is_active,
         launch_date
