@@ -8,7 +8,7 @@ orders as (
 ),
 cohort_base as (
     select
-        customer_id,
+        customers.customer_id                                                as customer_id,
         date_trunc('month', customers.first_order_date)                     as cohort_month,
         orders.order_ts,
         row_number() over (
