@@ -7,7 +7,6 @@ breakdown as (
     select
         sales_region_code,
         payment_type,
-        customer_id,
         count(order_id)     as order_count,
         sum(order_amount)   as total_revenue
     from orders
