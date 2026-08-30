@@ -13,7 +13,7 @@ ranked as (
             partition by sales_region_code order by order_amount desc
         )                                                        as rank_in_region
     from orders
-    where rank_in_region <= 5
+    qualify rank_in_region <= 5
 )
 select * from ranked
 order by sales_region_code, rank_in_region
