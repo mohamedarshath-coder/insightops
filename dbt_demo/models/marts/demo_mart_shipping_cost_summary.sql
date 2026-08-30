@@ -8,8 +8,8 @@ summary as (
         sales_region_code,
         sales_channel,
         count(order_id)                as order_count,
-        sum(shipping_cost_amount)       as total_shipping_cost,
-        avg(shipping_cost_amount)       as avg_shipping_cost
+        sum(shipping_amount)       as total_shipping_cost,
+        avg(shipping_amount)       as avg_shipping_cost
     from orders
     group by sales_region_code, sales_channel
 )
